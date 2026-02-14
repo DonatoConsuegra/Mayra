@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feliz Dia Morena 🤎</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .hearts-background {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .heart-float {
+            position: absolute;
+            font-size: 20px;
+            animation: float-up 8s infinite ease-in;
+            opacity: 0;
+        }
+
+        @keyframes float-up {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 900px;
+            width: 90%;
+            perspective: 1000px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 50px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            transform-style: preserve-3d;
+            animation: card-entrance 1s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 182, 193, 0.3), transparent);
+            transform: rotate(45deg);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        @keyframes card-entrance {
+            from {
+                opacity: 0;
+                transform: translateY(50px) rotateX(-15deg);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) rotateX(0);
+            }
+        }
+
+        .photo-container {
+            width: 250px;
+            height: 250px;
+            margin: 0 auto 30px;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .photo-container:hover {
+            transform: scale(1.05) rotate(2deg);
+        }
+
+        .photo-frame {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 8px solid #ff69b4;
+            box-shadow: 0 10px 30px rgba(255, 105, 180, 0.4);
+            position: relative;
+            background: linear-gradient(135deg, #ffeef8 0%, #ffe0f0 100%);
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .heart-decoration {
+            font-size: 60px;
+            margin-bottom: 20px;
+            animation: heartbeat 1.5s infinite;
+            display: inline-block;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            10%, 30% { transform: scale(1.1); }
+            20%, 40% { transform: scale(1); }
+        }
+
+        .name {
+            font-size: 3rem;
+            color: #d63384;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(214, 51, 132, 0.2);
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .message {
+            font-size: 1.3rem;
+            color: #555;
+            line-height: 1.8;
+            margin: 30px 0;
+            font-style: italic;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            color: #888;
+            margin-bottom: 30px;
+        }
+
+        .date {
+            font-size: 1.2rem;
+            color: #d63384;
+            font-weight: bold;
+            margin-top: 30px;
+        }
+
+        .interactive-hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .click-heart {
+            position: absolute;
+            font-size: 30px;
+            animation: heart-rise 2s ease-out forwards;
+            pointer-events: none;
+        }
+
+        @keyframes heart-rise {
+            0% {
+                transform: translateY(0) scale(0);
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(-50px) scale(1);
+            }
+            100% {
+                transform: translateY(-100px) scale(0);
+                opacity: 0;
+            }
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #ff6b9d 0%, #c06c84 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 107, 157, 0.4);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #a8e6cf 0%, #77dd77 100%);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(168, 230, 207, 0.4);
+        }
+
+        .music-toggle {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff6b9d 0%, #c06c84 100%);
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 107, 157, 0.4);
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .music-toggle:hover {
+            transform: scale(1.1) rotate(10deg);
+        }
+
+        .music-toggle.playing {
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        @media (max-width: 768px) {
+            .card {
+                padding: 30px 20px;
+            }
+
+            .name {
+                font-size: 2rem;
+            }
+
+            .message {
+                font-size: 1.1rem;
+            }
+
+            .photo-container {
+                width: 200px;
+                height: 200px;
+            }
+        }
+
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: #ff69b4;
+            position: absolute;
+            animation: confetti-fall 3s linear forwards;
+        }
+
+        @keyframes confetti-fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hearts-background"></div>
+    <div class="interactive-hearts"></div>
+
+    <!-- ============================================ -->
+    <!-- AUDIO: Coloca tu archivo de música aquí -->
+    <!-- ============================================ -->
+    <!-- Ejemplo: <audio id="backgroundMusic" loop>
+                    <source src="tu-cancion.mp3" type="audio/mpeg">
+                </audio> -->
+    <audio id="backgroundMusic" loop>
+        <!-- INSTRUCCIONES: 
+             1. Descarga una canción romántica en formato MP3
+             2. Coloca el archivo en la misma carpeta que este HTML
+             3. Descomenta la línea de abajo y reemplaza "tu-cancion.mp3" con el nombre de tu archivo
+        -->
+        <!-- <source src="tu-cancion.mp3" type="audio/mpeg"> -->
+    </audio>
+
+    <div class="container">
+        <div class="card">
+            <div class="heart-decoration">💕</div>
+            
+            <!-- ============================================ -->
+            <!-- FOTO: Cambia la ruta de la imagen aquí -->
+            <!-- ============================================ -->
+            <div class="photo-container">
+                <div class="photo-frame">
+                    <!-- INSTRUCCIONES:
+                         1. Coloca tu foto en la misma carpeta que este HTML
+                         2. Cambia "tu-foto.jpg" por el nombre de tu imagen
+                         Ejemplo: <img src="mi-amor.jpg" alt="Mi amor">
+                    -->
+                    <img src="photo_5179402831956478802_y.jpg" alt="Foto especial">
+                </div>
+            </div>
+
+            <!-- ============================================ -->
+            <!-- NOMBRE: Edita el nombre aquí -->
+            <!-- ============================================ -->
+            <h1 class="name">Mayra🤎</h1>
+            
+            <p class="subtitle">Te quiero mucho niña✨</p>
+
+            <!-- ============================================ -->
+            <!-- MENSAJE: Edita tu mensaje romántico aquí -->
+            <!-- ============================================ -->
+            <p class="message">
+                En este día especial quiero recordarte lo importante que eres en mi vida. 
+                Cada momento a tu lado es un regalo que atesoro en mi corazón. 
+                Eres mi inspiración, mi alegría y mi amor verdadero. 
+                Gracias por existir y por hacerme tan feliz. 
+                Te amo hoy y siempre. ❤️
+            </p>
+
+            <!-- ============================================ -->
+            <!-- FECHA: Edita la fecha aquí -->
+            <!-- ============================================ -->
+            <p class="date">San Valentín 2026</p>
+
+            <div class="buttons">
+                <button class="btn btn-primary" onclick="createHeartRain()">💖 Lluvia de Amor</button>
+                <button class="btn btn-secondary" onclick="createConfetti()">🎉 Celebrar</button>
+            </div>
+        </div>
+    </div>
+
+    <button class="music-toggle" id="musicToggle" title="Música romántica">🎵</button>
+
+    <script>
+        // ============================================
+        // SISTEMA DE CORAZONES FLOTANTES
+        // ============================================
+        function createFloatingHearts() {
+            const heartsContainer = document.querySelector('.hearts-background');
+            const heartSymbols = ['❤️', '💕', '💖', '💗', '💝', '💘'];
+            
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.className = 'heart-float';
+                heart.textContent = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDuration = (5 + Math.random() * 5) + 's';
+                heart.style.fontSize = (15 + Math.random() * 20) + 'px';
+                heartsContainer.appendChild(heart);
+                
+                setTimeout(() => {
+                    heart.remove();
+                }, 8000);
+            }, 800);
+        }
+
+        // ============================================
+        // SISTEMA DE MÚSICA
+        // ============================================
+        const musicToggle = document.getElementById('musicToggle');
+        const backgroundMusic = document.getElementById('backgroundMusic');
+        let musicPlaying = false;
+
+        musicToggle.addEventListener('click', () => {
+            if (musicPlaying) {
+                backgroundMusic.pause();
+                musicToggle.textContent = '🎵';
+                musicToggle.classList.remove('playing');
+                musicPlaying = false;
+            } else {
+                backgroundMusic.play().then(() => {
+                    musicToggle.textContent = '🎶';
+                    musicToggle.classList.add('playing');
+                    musicPlaying = true;
+                }).catch(() => {
+                    alert('No se pudo reproducir la música. Asegúrate de agregar un archivo de audio en el código HTML.');
+                });
+            }
+        });
+
+        // ============================================
+        // LLUVIA DE CORAZONES
+        // ============================================
+        function createHeartRain() {
+            const hearts = ['❤️', '💕', '💖', '💗', '💝', '💘', '💓', '💞'];
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'heart-float';
+                    heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                    heart.style.left = Math.random() * 100 + '%';
+                    heart.style.fontSize = (20 + Math.random() * 30) + 'px';
+                    heart.style.animationDuration = (2 + Math.random() * 3) + 's';
+                    document.querySelector('.hearts-background').appendChild(heart);
+                    
+                    setTimeout(() => heart.remove(), 5000);
+                }, i * 50);
+            }
+        }
+
+        // ============================================
+        // EFECTO CONFETTI
+        // ============================================
+        function createConfetti() {
+            const colors = ['#ff69b4', '#ff1493', '#ffc0cb', '#ff6b9d', '#c06c84', '#a8e6cf'];
+            for (let i = 0; i < 100; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.top = '-10px';
+                    confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.width = (5 + Math.random() * 10) + 'px';
+                    confetti.style.height = (5 + Math.random() * 10) + 'px';
+                    confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                    document.body.appendChild(confetti);
+                    
+                    setTimeout(() => confetti.remove(), 3000);
+                }, i * 30);
+            }
+        }
+
+        // ============================================
+        // CORAZONES AL HACER CLIC
+        // ============================================
+        document.addEventListener('click', (e) => {
+            if (e.target.tagName !== 'BUTTON') {
+                const heart = document.createElement('div');
+                heart.className = 'click-heart';
+                heart.textContent = '💖';
+                heart.style.left = e.pageX + 'px';
+                heart.style.top = e.pageY + 'px';
+                document.querySelector('.interactive-hearts').appendChild(heart);
+                
+                setTimeout(() => heart.remove(), 2000);
+            }
+        });
+
+        // ============================================
+        // INICIALIZAR ANIMACIONES
+        // ============================================
+        createFloatingHearts();
+    </script>
+</body>
+</html>
